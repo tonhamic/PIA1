@@ -1,3 +1,3 @@
-from video_renderer import render
+from video_renderer.renderer import render
 
 render()

@@ -1,3 +1,3 @@
-from video_renderer import generator
+from video_renderer.fake_text_frame_generator import generate
 
-generator()
+generate()
