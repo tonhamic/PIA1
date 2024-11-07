@@ -29,9 +29,9 @@ Pro čisté použití je nutná příprava prostředí:
 Po ukončení práce je možné prostředí ukončit pomocí `exit`
 
 
-Video renderer je python progam, který se spouští z root složky pomocí `python renderer.py`. Vstupní data pocházejí z frame generatoru, nebo při testování z fake generátoru.
+Video renderer je python progam, který se spouští z root složky pomocí `python renderer.py`. Vstupní data pocházejí z text frame generatoru, nebo při testování z testovacího generátoru.
 
-Fake generátor se spouští pomocí `python fake_text_frame_generator.py` a generuje soubory ve složce video_renderer/fake_text_frames, kterou i vytváří.
+Testovací text frame generátor se spouští pomocí `python test_text_frame_generator.py` a generuje soubory ve složce video_renderer/test_text_frames, kterou i vytváří.
 
 ## Poznámky
 - .gitignore je Chat-GPT generovaný soubor, který má fungovat obstojně pro c++ / python / VSCode projekty. Pomalu se rozrůstá.

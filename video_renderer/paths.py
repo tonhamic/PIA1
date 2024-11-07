@@ -2,4 +2,6 @@ from pathlib import Path
 
 p = Path.cwd()
 
-fake_text_frames_path = p / "video_renderer" / "fake_text_frames"
+test_text_frames_path = p / "video_renderer" / "test_text_frames"
+
+frames_path = p / "video_renderer" / "frames"

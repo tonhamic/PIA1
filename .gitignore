@@ -1,5 +1,6 @@
 # Manually added files by Josef Lat
-fake_text_frames
+test_text_frames
+frames
 
 # Ignore Python files
 *.pyc
