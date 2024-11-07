@@ -17,7 +17,9 @@ Josef Lát
 
 ## Video renderer
 
-Video renderer je python progam, který se spouští z root složky pomocí `python renderer.py`. Vstupní data pocházejí z frame generatoru, nebo při testování z `fake_frame_generator.py`.
+Video renderer je python progam, který se spouští z root složky pomocí `python renderer.py`. Vstupní data pocházejí z frame generatoru, nebo při testování z fake generátoru.
+
+Fake generátor se spouští pomocí `python fake_frame_generator.py` a vytváří soubory ve složce video_renderer/fake_frames, kterou i vytváří.
 
 ## Poznámky
 - .gitignore je Chat-GPT generovaný soubor, který má fungovat obstojně pro c++ / pythoon / VSCode projekty. Pomalu se rozrůstá.
