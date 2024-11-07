@@ -1,0 +1,49 @@
+# Ignore Python files
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+dist/
+build/
+*.so
+*.log
+
+# Ignore C++ build artifacts
+*.o
+*.obj
+*.out
+*.exe
+*.a
+*.lib
+*.so
+*.dll
+
+# Ignore CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Ignore Visual Studio Code settings and extensions
+.vscode/
+*.code-workspace
+
+# Ignore virtual environments
+venv/
+.venv/
+
+# Ignore compiled Python extensions
+*.c
+*.cpp
+
+# Ignore temporary files
+*~
+*.swp
+.DS_Store
+Thumbs.db
+
+# Ignore generated documentation
+docs/_build/
