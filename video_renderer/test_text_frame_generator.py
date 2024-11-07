@@ -10,8 +10,8 @@ def generate():
     e2 = Entity(10, 50, 0)
     for i in range(n_steps):
         result = ""
-        result += e1.to_txt() + "\n"
-        result += e2.to_txt() + "\n"
+        result += e1.to_str() + "\n"
+        result += e2.to_str() + "\n"
         e1.move()
         e2.move()
         

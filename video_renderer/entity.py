@@ -11,8 +11,13 @@ class Entity:
         self.x += v*math.cos(self.phi)
         self.y += v*math.sin(self.phi)
         
-    def to_txt(self):
+    def to_str(self):
         x_rounded = round(self.x, 3)
         y_rounded = round(self.y, 3)
         phi_rounded = round(self.phi, 3)
         return f"{x_rounded};{y_rounded};{phi_rounded}"
+
+    @staticmethod
+    def from_str(line):
+        x, y, phi = map(float, line.split(";"))
+        return Entity(x, y, phi)
