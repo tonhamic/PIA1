@@ -4,17 +4,13 @@ from .entity import Entity
 from math import pi
 
 p = Path.cwd()
-fake_frames_path = p / "video_renderer" / "fake_frames"
-
-
-def test():
-    print("hello world")
+fake_text_frames_path = p / "video_renderer" / "fake_text_frames"
 
 
 def prepare_environment():
-    if fake_frames_path.exists():
-        shutil.rmtree(fake_frames_path)
-    fake_frames_path.mkdir()
+    if fake_text_frames_path.exists():
+        shutil.rmtree(fake_text_frames_path)
+    fake_text_frames_path.mkdir()
     
 
 def generator():
@@ -29,7 +25,10 @@ def generator():
         e1.move()
         e2.move()
         
-        path = fake_frames_path / f"{i}.txt"
+        path = fake_text_frames_path / f"{i}.txt"
         with open(path, "w") as file:
             file.write(result)
         
+    
+def render():
+    print("rendering")

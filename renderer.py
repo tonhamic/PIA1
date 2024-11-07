@@ -1,3 +1,3 @@
-from video_renderer import test
+from video_renderer import render
 
-test()
+render()

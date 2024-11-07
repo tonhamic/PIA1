@@ -17,9 +17,21 @@ Josef Lát
 
 ## Video renderer
 
+Python v tomto projektu využívá některé knihovny, které nejsou součástí standard library:
+- matplotlib
+
+Pro čisté použití je nutná příprava prostředí:
+1. instalace `pip`
+2. instalace pipenv pomocí `pip install pipenv`
+3. pomocí `cd` donavigujte do root složky projektu
+4. založení nového virtuálního prostředí a instalace potřebných knihoven pomocí `pipenv install` (pipenv nainstaluje knihovny pomocí záznamů v Pipfile a Pipfile.lock)
+5. aktivování prostředí pomocí `pipenv shell`
+Po ukončení práce je možné prostředí ukončit pomocí `exit`
+
+
 Video renderer je python progam, který se spouští z root složky pomocí `python renderer.py`. Vstupní data pocházejí z frame generatoru, nebo při testování z fake generátoru.
 
-Fake generátor se spouští pomocí `python fake_frame_generator.py` a vytváří soubory ve složce video_renderer/fake_frames, kterou i vytváří.
+Fake generátor se spouští pomocí `python fake_text_frame_generator.py` a generuje soubory ve složce video_renderer/fake_text_frames, kterou i vytváří.
 
 ## Poznámky
-- .gitignore je Chat-GPT generovaný soubor, který má fungovat obstojně pro c++ / pythoon / VSCode projekty. Pomalu se rozrůstá.
+- .gitignore je Chat-GPT generovaný soubor, který má fungovat obstojně pro c++ / python / VSCode projekty. Pomalu se rozrůstá.
