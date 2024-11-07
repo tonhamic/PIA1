@@ -1,3 +1,6 @@
+# Manually added files by Josef Lat
+fake_frames
+
 # Ignore Python files
 *.pyc
 __pycache__/
