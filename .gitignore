@@ -1,5 +1,7 @@
 # Manually added files by Josef Lat
-fake_frames
+test_text_frames
+frames
+output_video.*
 
 # Ignore Python files
 *.pyc
