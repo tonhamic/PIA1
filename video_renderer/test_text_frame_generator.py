@@ -5,7 +5,7 @@ from math import pi
 
 def generate():
     prepare_test_text_frames_folder()
-    n_steps = 100
+    n_steps = int(input("Zadejte počet kroků: "))
     e1 = Entity(10, 10, pi/4)
     e2 = Entity(10, 50, 0)
     for i in range(n_steps):
