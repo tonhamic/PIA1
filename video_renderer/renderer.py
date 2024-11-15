@@ -17,7 +17,7 @@ def render():
     for i, frame in enumerate(frames_path.iterdir()):
         if i % (n_frames // 10) == 0:
             print(f"{i/n_frames * 100:.0f}%")
-        world = World.from_file(frame)
+        world = World.from_file(frame, uses_vxvy=True)
         world.render_frame()
     
     print("renderování snímků dokončeno. Připravuji video...")

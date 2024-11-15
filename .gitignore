@@ -2,6 +2,8 @@
 test_text_frames
 frames
 output_video.*
+build/
+simulation_data
 
 # Ignore Python files
 *.pyc
@@ -30,7 +32,6 @@ build/
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
-Makefile
 
 # Ignore Visual Studio Code settings and extensions
 .vscode/
@@ -42,7 +43,6 @@ venv/
 
 # Ignore compiled Python extensions
 *.c
-*.cpp
 
 # Ignore temporary files
 *~
