@@ -10,14 +10,14 @@ class World:
         self.id = id
     
     @staticmethod    
-    def from_file(path: Path) -> "World":
+    def from_file(path: Path, uses_vxvy: bool) -> "World":
         w = World(id=int(path.stem))
         with open(path) as file:
             file = file.read().split("\n")
             for line in file:
                 if line == "":
                     continue
-                entity = Entity.from_str(line)
+                entity = Entity.from_str(line, uses_vxvy=uses_vxvy)
                 w.entities.append(entity)
         return w
     

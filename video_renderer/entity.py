@@ -18,6 +18,10 @@ class Entity:
         return f"{x_rounded};{y_rounded};{phi_rounded}"
 
     @staticmethod
-    def from_str(line):
-        x, y, phi = map(float, line.split(";"))
+    def from_str(line, uses_vxvy):
+        if uses_vxvy:
+            x, y, vx, vy = map(float, line.split(";"))
+            phi = math.atan2(vy, vx)
+        else:
+            x, y, phi = map(float, line.split(";"))
         return Entity(x, y, phi)
