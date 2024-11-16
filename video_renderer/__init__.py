@@ -1,9 +1,11 @@
 import shutil
-from .entity import Entity
-from math import pi
-from .paths import test_text_frames_path, frames_path
+import json
+from .paths import test_text_frames_path, frames_path, settings_path
+from .settings import Settings
 
-
+#imported by other files
+_settings = Settings.load()
+    
 def prepare_test_text_frames_folder():
     if test_text_frames_path.exists():
         shutil.rmtree(test_text_frames_path)

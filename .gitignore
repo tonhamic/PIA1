@@ -4,6 +4,7 @@ frames
 output_video.*
 build/
 simulation_data
+settings.json
 
 # Ignore Python files
 *.pyc
