@@ -19,7 +19,7 @@ float getVY() const { return vy; };
 protected: 
 float x, y;    
 float vx, vy;
-float v_size = 50.0;
+float v_size = 10.0;
 
 private: 
 
