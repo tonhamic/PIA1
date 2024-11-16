@@ -8,7 +8,7 @@
 
 int main() {
     int fps = 30;                      //desired FPS
-    int sim_time = 1;                  //simulation time
+    int sim_time = 30;                  //simulation time
     int totalFrames = fps * sim_time;  //total number of frames
 
     //creating directory "simulation_data"
