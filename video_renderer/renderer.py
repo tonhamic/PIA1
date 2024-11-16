@@ -1,4 +1,4 @@
-from . import prepare_frames_folder
+from . import prepare_frames_folder, _settings
 from .paths import project_root, output_video_path, frames_path
 from pathlib import Path
 from .world import World
@@ -6,6 +6,14 @@ import cv2
 
 
 def render():
+    
+    print("====================================")
+    print("Vítejte v programu pro renderování videa z textových snímků.")
+    volba = input("Pro využití nastavení ze settings.json stiskněte Enter. Pro vygenerování nových defaultních nastavení napište písmeno 'n' a stiskněte Enter: ")
+    
+    if volba == "n":
+        _settings.generate_default_settings()
+        
     
     prepare_frames_folder()
     frames_path = get_frames_path()
@@ -17,7 +25,7 @@ def render():
     for i, frame in enumerate(frames_path.iterdir()):
         if i % (n_frames // 10) == 0:
             print(f"{i/n_frames * 100:.0f}%")
-        world = World.from_file(frame, uses_vxvy=True)
+        world: World = World.from_file(frame)
         world.render_frame()
     
     print("renderování snímků dokončeno. Připravuji video...")
@@ -28,24 +36,18 @@ def render():
     
     
 def get_frames_path() -> Path:
-    frames_path = input("Zadejte cestu ke složce text frames relativně ke složce projektu, nebo nechte prázdné pro testovací text frames: ")
-    # je tu shorcut pro testing
-    if frames_path == "":
-        return project_root / "video_renderer" / "test_text_frames"
-    
-    # zbytek pro normalni pouziti
-    frames_path = project_root / frames_path
+    frames_path = project_root / _settings.get_text_frames_folder_path()
     if frames_path.exists():
         return frames_path
     else:
-        raise Exception(f"Zadaná cesta neexistuje: {frames_path}")
+        raise Exception(f"Cesta k text frames zadaná v settings.json neexistuje: {frames_path}")
     
         
 def render_video():
     if output_video_path.exists():
         output_video_path.unlink()
     
-    frame_rate = 24
+    frame_rate = _settings.get_frame_rate()
     first_image = cv2.imread(next(frames_path.iterdir()))
     height, width, _ = first_image.shape
     frame_size = (width, height)

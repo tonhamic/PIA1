@@ -3,6 +3,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 from math import sin, cos, pi
 from .paths import frames_path
+from . import _settings
 
 class World:
     def __init__(self, id):
@@ -10,26 +11,29 @@ class World:
         self.id = id
     
     @staticmethod    
-    def from_file(path: Path, uses_vxvy: bool) -> "World":
+    def from_file(path: Path) -> "World":
         w = World(id=int(path.stem))
         with open(path) as file:
             file = file.read().split("\n")
             for line in file:
                 if line == "":
                     continue
-                entity = Entity.from_str(line, uses_vxvy=uses_vxvy)
+                entity = Entity.from_str(line)
                 w.entities.append(entity)
         return w
     
     def render_frame(self):
-        fig, ax = plt.subplots(figsize=(5, 5))
-        ax.set_xlim(0, 500)
-        ax.set_ylim(0, 500)
+        width = _settings.get_screen_width()
+        height = _settings.get_screen_height()
+        aspect_ratio = width / height
+        fig, ax = plt.subplots(figsize=(5*aspect_ratio, 5))
+        ax.set_xlim(0, width)
+        ax.set_ylim(0, height)
 
         # background
         fig.patch.set_facecolor('#DDDCAB')
         
-        a = 5
+        a = _settings.get_animal_size()
         for e in self.entities:
             points = [
                 [e.x, e.y], 
