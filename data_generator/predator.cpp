@@ -7,25 +7,25 @@
 #include "prey.h"
 using namespace std;
 
-predator::predator(float startX, float startY) : animal(startX, startY) {
+predator::predator(double startX, double startY) : animal(startX, startY) {
     x = startX;
     y = startY;
     //randomly generated components of velocity vector
     random_device rd;  
     mt19937 gen(rd()); 
-    uniform_real_distribution<float> rand(-1.0, 1.0); //range within the numbers will be created
+    uniform_real_distribution<double> rand(-1.0, 1.0); //range within the numbers will be created
 
-    float vx_rand, vy_rand, norm;
+    double vx_rand, vy_rand, norm;
     do {
-        //two random floats
+        //two random doubles
         vx_rand = rand(gen);
         vy_rand = rand(gen);
 
-        //Euclidean norm of those two floats
+        //Euclidean norm of those two doubles
         norm = sqrt(vx_rand * vx_rand + vy_rand * vy_rand);
     } while (norm == 0.0f); //avoiding division by zero
 
-    //scaling these two random floats to velocity size
+    //scaling these two random doubles to velocity size
     vx = v_size * (vx_rand / norm);
     vy = v_size * (vy_rand / norm);
 }
