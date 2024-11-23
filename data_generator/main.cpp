@@ -16,7 +16,7 @@ int main() {
     int sim_time = 30;                                          //simulation time
     int totalFrames = fps * sim_time;                           //total number of frames
     std::vector<prey> preys = generate_preys(20);               //starting number of preys
-    std::vector<predator> predators = generate_predators(0);    //starting number of predators
+    std::vector<predator> predators = generate_predators(5);    //starting number of predators
     //--------------------------------------------------------------------------------------------
 
     //creating directory "simulation_data"
@@ -24,12 +24,13 @@ int main() {
     std::filesystem::create_directory(folderName);
 
 
-    int n_prey = preys.size();
-    int n_predator = predators.size();
+
 
 
 //simulation
     for (int frame = 0; frame < totalFrames; ++frame) {
+        int n_prey = preys.size();
+        int n_predator = predators.size();
         //create data.txt 
         std::string filePath = folderName + "/" + std::to_string(frame) + ".txt";
 
@@ -44,6 +45,10 @@ int main() {
             outFile << preys[i].getX() << "; " << preys[i].getY() << "; "
                     << preys[i].getVX() << "; " << preys[i].getVY() << "\n";
         }
+
+        //empty line between preys and predators, just uncomment and use when the renderer will be ready for it
+        //outFile << " " << "\n";
+
         for (int i =0;i<n_predator; i++) {
             outFile << predators[i].getX() << "; " << predators[i].getY() << "; "
                     << predators[i].getVX() << "; " << predators[i].getVY() <<"\n";
@@ -54,6 +59,14 @@ int main() {
         //update object position
         for (int i =0;i<n_prey; i++) {
             preys[i].update(preys);       
+        }
+
+        for (int i =0;i<n_predator; i++) {
+            predators[i].update(predators); 
+            predators[i].chase(preys);  
+            if (predators[i].getScore() == 5) {
+                predators.push_back(predator(predators[i].getX(),predators[i].getY()));
+            }  
         }
     }
 
