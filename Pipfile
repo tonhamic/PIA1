@@ -4,10 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-matplotlib = "*"
 opencv-python = "*"
+matplotlib = "*"
 
 [dev-packages]
-
-[requires]
-python_version = ">=3.11"

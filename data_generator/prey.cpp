@@ -2,48 +2,100 @@
 #include <fstream>
 #include <random>
 #include <cmath>
+#include <algorithm>
 #include "prey.h"
+#include "predator.h"
 
 using namespace std;
 
-prey::prey(float startX, float startY) : animal(startX, startY) {
+prey::prey(double startX, double startY) : animal(startX, startY) {
     x = startX;
     y = startY;
 
-    //randomly generated components of velocity vector
-    random_device rd;  
-    mt19937 gen(rd()); 
-    uniform_real_distribution<float> rand(-1.0, 1.0); //range within the numbers will be created
+    // Randomly generated components of velocity vector
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_real_distribution<double> rand(-1.0, 1.0);  // Range within the numbers will be created
 
-    float vx_rand, vy_rand, norm;
+    double vx_rand, vy_rand, norm;
     do {
-        //two random floats
         vx_rand = rand(gen);
         vy_rand = rand(gen);
 
-        //Euclidean norm of those two floats
+        // Euclidean norm of those two doubles
         norm = sqrt(vx_rand * vx_rand + vy_rand * vy_rand);
-    } while (norm == 0.0f); //avoiding division by zero
+    } while (norm == 0.0);  // Avoid division by zero
 
-    //scaling these two random floats to velocity size
+    // Scaling these two random doubles to velocity size
     vx = v_size * (vx_rand / norm);
     vy = v_size * (vy_rand / norm);
 }
 
-//position update (or change of velocity according to relative position with "borders")
-void prey::update() {
-    animal::update();
-
-    x += vx;
-    y += vy;
-    
-    if (x <= 0 || x >= windowWidth){
-        vx = -vx;
-    }
-
-    if (y <= 0 || y >= windowHeight){
-        vy = -vy;
+void prey::limitVelocity() {
+    double velocityNorm = sqrt(vx * vx + vy * vy);
+    if (velocityNorm > v_size) {
+        vx = (vx / velocityNorm) * v_size;
+        vy = (vy / velocityNorm) * v_size;
     }
 }
 
+void prey::update(std::vector<prey>& others) {
+    //iteration through prey objects for possible interactions
+    for (prey& other : others) {
+        if (&other == this) continue; //avoiding self-interaction
 
+        double dx = other.x - x;
+        double dy = other.y - y;
+        double distance = sqrt(dx * dx + dy * dy);
+
+        
+        if (distance > 0 && distance < attractionRange) {
+            //attraction force (m1,2 = 1)
+            double force = G / (distance * distance); //analogy with newton's gravity law
+            double fx = force * (dx / distance);      //x component of force
+            double fy = force * (dy / distance);      //y component of force
+
+            //new velocity
+            vx += fx;
+            vy += fy;
+        }
+
+        if (distance > 0 && distance < repulsionRange) {
+            //repulsion force (m1,2 = 1)
+            double force = -G / (distance * distance); //analogy with newton's gravity law
+            double fx = force * (dx / distance);       //x component of force
+            double fy = force * (dy / distance);       //y component of force
+
+            //new velocity
+            vx += fx;
+            vy += fy;
+        }
+    }
+
+
+
+    //limit velocity to maximal velocity of class prey
+    limitVelocity();
+
+    //boundary conditions
+    if (x >= windowWidth) {
+        x = windowWidth - 1;
+        vx = -vx;  
+    }
+    if (x <= 0) {
+        x = 1;
+        vx = -vx;  
+    }
+    if (y >= windowHeight) {
+        y = windowHeight - 1;
+        vy = -vy;  
+    }
+    if (y <= 0) {
+        y = 1;
+        vy = -vy;  
+    }
+
+    //update position based on calculated velocity
+    x += vx;
+    y += vy;
+}

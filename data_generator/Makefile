@@ -6,7 +6,7 @@ CXXFLAGS = -Wall -Wextra -std=c++17
 TARGET = simulation
 
 # Source files
-SOURCES = main.cpp animal.cpp prey.cpp predator.cpp
+SOURCES = main.cpp animal.cpp prey.cpp predator.cpp generate_predators.cpp generate_preys.cpp
 
 # Default target
 all: $(TARGET)
