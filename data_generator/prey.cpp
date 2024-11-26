@@ -99,3 +99,45 @@ void prey::update(std::vector<prey>& others) {
     x += vx;
     y += vy;
 }
+
+void prey::run(std::vector<predator> enemies){
+   
+    double min_distance = eat_distance;
+    for (auto& enemy : enemies) {
+        double dx = enemy.getX() - x;
+        double dy = enemy.getY() - y;
+        double distance = sqrt(dx * dx + dy * dy);
+
+        
+        if (distance > 0 && distance < attractionRange) {
+            //attraction force (m1,2 = 1)
+            double force = -R / (distance * distance); //analogy with newton's gravity law
+            double fx = force * (dx / distance);      //x component of force
+            double fy = force * (dy / distance);      //y component of force
+
+            //new velocity
+            vx += fx;
+            vy += fy;
+        }
+        if(distance < min_distance){
+            min_distance = distance;
+        }
+
+    }
+
+    if (min_distance < eat_distance){
+            eaten = true;
+        }
+    else{
+            eaten = false;
+        }
+    
+
+    if(!eaten) {
+        alive++;
+    }
+
+    if(alive > req_alive) {
+        alive = 0;
+    }
+}
