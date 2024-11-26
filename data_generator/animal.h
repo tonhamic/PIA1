@@ -21,6 +21,7 @@ float vx, vy;
 //fixed resolution          
 int windowWidth = 1280;
 int windowHeight = 720;
+double eat_distance = 10.0;
 private: 
 
 };

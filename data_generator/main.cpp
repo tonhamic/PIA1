@@ -15,8 +15,8 @@ int main() {
     int fps = 30;                                               //desired FPS
     int sim_time = 30;                                          //simulation time
     int totalFrames = fps * sim_time;                           //total number of frames
-    std::vector<prey> preys = generate_preys(20);               //starting number of preys
-    std::vector<predator> predators = generate_predators(5);    //starting number of predators
+    std::vector<prey> preys = generate_preys(50);               //starting number of preys
+    std::vector<predator> predators = generate_predators(10);    //starting number of predators
     //--------------------------------------------------------------------------------------------
 
     //creating directory "simulation_data"
@@ -57,17 +57,57 @@ int main() {
         outFile.close();
 
         //update object position
+        std::vector<prey> new_preys;
+        std::vector<int> dead_preys;
         for (int i =0;i<n_prey; i++) {
-            preys[i].update(preys);       
-        }
+            preys[i].update(preys);
+            preys[i].run(predators);
+            if (preys[i].getAlive() >= preys[i].getReq_alive()) {
+                new_preys.push_back(prey(preys[i].getX(),preys[i].getY()));
+            }   
 
-        for (int i =0;i<n_predator; i++) {
-            predators[i].update(predators); 
-            predators[i].chase(preys);  
-            if (predators[i].getScore() == 5) {
-                predators.push_back(predator(predators[i].getX(),predators[i].getY()));
+            if (preys[i].is_eaten() == true) {
+                dead_preys.push_back(i);
             }  
         }
+        for (size_t i = 0; i < new_preys.size(); i++) {
+            preys.push_back(new_preys[i]);
+        }
+        new_preys.clear();
+
+        for (int i = dead_preys.size() - 1; i >= 0; --i) {
+            preys.erase(preys.begin() + dead_preys[i]);
+        }
+        dead_preys.clear();
+
+        std::vector<predator> new_predators;
+        std::vector<int> dead_predators;
+        for (int i = 0;i<n_predator; i++) {
+            predators[i].update(predators); 
+            predators[i].chase(preys);  
+            if (predators[i].getScore() >= predators[i].getReq_score()) {
+                new_predators.push_back(predator(predators[i].getX(),predators[i].getY()));
+            }
+
+            if(predators[i].getScore() <= -150) {
+                dead_predators.push_back(i);
+            }
+            std::cout << predators[i].getScore() << " ";
+        }
+
+        for (size_t i = 0; i < new_predators.size(); i++) {
+            predators.push_back(new_predators[i]);
+        }
+        new_predators.clear();
+
+        for (size_t i = 0; i < dead_predators.size(); i++){
+            std::cout << dead_predators[i] << std::endl;
+        }
+
+        for (int i = dead_predators.size() - 1; i >= 0; --i){
+            predators.erase(predators.begin() + dead_predators[i]);
+        }
+        dead_predators.clear();
     }
 
 

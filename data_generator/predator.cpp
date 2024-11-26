@@ -48,16 +48,16 @@ void predator::update(std::vector<predator>& others) {
         double distance = sqrt(dx * dx + dy * dy);
 
         
-        if (distance > 0 && distance < attractionRange) {
-            //attraction force (m1,2 = 1)
-            double force = G / (distance * distance); //analogy with newton's gravity law
-            double fx = force * (dx / distance);      //x component of force
-            double fy = force * (dy / distance);      //y component of force
+        // if (distance > 0 && distance < attractionRange) {
+        //     //attraction force (m1,2 = 1)
+        //     double force = G / (distance * distance); //analogy with newton's gravity law
+        //     double fx = force * (dx / distance);      //x component of force
+        //     double fy = force * (dy / distance);      //y component of force
 
-            //new velocity
-            vx += fx;
-            vy += fy;
-        }
+        //     //new velocity
+        //     vx += fx;
+        //     vy += fy;
+        // }
 
         if (distance > 0 && distance < repulsionRange) {
             //repulsion force (m1,2 = 1)
@@ -99,6 +99,7 @@ void predator::update(std::vector<predator>& others) {
 }
 
 void predator::chase(std::vector<prey> enemies){
+        double min_distance = eat_distance + 1.0;
     for (auto& enemy : enemies) {
 
         double dx = enemy.getX() - x;
@@ -106,9 +107,9 @@ void predator::chase(std::vector<prey> enemies){
         double distance = sqrt(dx * dx + dy * dy);
 
         
-        if (distance > 0 && distance < attractionRange) {
+        if (distance > 0 && distance < attractionRange+100) {
             //attraction force (m1,2 = 1)
-            double force = K / (distance * distance); //analogy with newton's gravity law
+            double force = A / (distance * distance); //analogy with newton's gravity law
             double fx = force * (dx / distance);      //x component of force
             double fy = force * (dy / distance);      //y component of force
 
@@ -117,9 +118,21 @@ void predator::chase(std::vector<prey> enemies){
             vy += fy;
         }
 
-        if (distance < 1.0){
-            score++;
+        if(distance<min_distance){
+            min_distance = distance;
         }
+
+
+    }
+
+    if(min_distance <= eat_distance){
+        score++;
+    }
+    else {
+        score--;
+    }
+    if(score > req_score){
+        score = 0;
     }
 }
 
