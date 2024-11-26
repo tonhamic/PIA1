@@ -47,7 +47,7 @@ int main() {
         }
 
         //empty line between preys and predators, just uncomment and use when the renderer will be ready for it
-        //outFile << " " << "\n";
+        outFile << " " << "\n";
 
         for (int i =0;i<n_predator; i++) {
             outFile << predators[i].getX() << "; " << predators[i].getY() << "; "

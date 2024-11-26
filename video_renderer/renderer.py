@@ -22,11 +22,14 @@ def render():
     
     # add a message every 10% of frames done
     n_frames = len(list(frames_path.iterdir()))
-    for i, frame in enumerate(frames_path.iterdir()):
+    world = World()
+    paths_sorted_by_name = sorted(frames_path.iterdir(), key = lambda x: int(x.stem))
+    for i, frame_path in enumerate(paths_sorted_by_name):
         if i % (n_frames // 10) == 0:
             print(f"{i/n_frames * 100:.0f}%")
-        world: World = World.from_file(frame)
-        world.render_frame()
+        world.clear()
+        world.load_entities_from_frame(frame_path)
+        world.render_frame()    
     
     print("renderování snímků dokončeno. Připravuji video...")
     

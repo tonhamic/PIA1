@@ -9,21 +9,20 @@ Josef Lát
 
 ## Cíle
 
-- c++ program, který simuluje dvě populace pohybujících se organismů, které soupeří čas přežití. Výstupem je poloha a směr všech entit v každém časovém kroku.
+- c++ program, který simuluje dvě populace pohybujících se organismů, které soupeří o čas a přežití. Výstupem je poloha a směr všech entit v každém časovém kroku.
 - python program, který na základě spočtených dat vygeneruje krátké video, na kterém bude patrný vývoj populací a pohyb jednotlivých entit
 - parametry simulace:
     - velikost prostoru 1280 × 720 px (HD or 720p)
     - framerate 30 fps
-    - počáteční počet ryb a žraloků 
-    - rychlost ryb a žraloků, udávaná v pixelech/frame (ppf)
-    - čas potřebný pro reprodukci ryb a pro úmrtí žraloků, udaný v počtu snímků
-    - velikost zóny podél okrajů, která entity odpuzuje a udržuje je na obrazovce a její intenzita
-    - poloměr dohledu ryb
-    - intenzita shlukování, alignmentu směru a zdrhání od žraloků
-    - poloměr "osobního prostoru" ryb a intenzita vzájemného odpuzování
-    - poloměr dohledu žraloků, intenzita pronásledování ryb
+    - počáteční počet predátorů a kořisti
+    - rychlost predátorů a kkořisti, udávaná v pixelech/frame (ppf)
+    - čas potřebný pro reprodukci kořisti a pro úmrtí predátorů, udaný v počtu snímků
+    - poloměr dohledu kořisti
+    - intenzita shlukování, alignmentu směru a zdrhání od predátorů
+    - poloměr "osobního prostoru" kořisti a intenzita vzájemného odpuzování
+    - poloměr dohledu predátorů, intenzita pronásledování kořisti
 
-## Frame generator
+## Data generator
 
 Frame generator je c++ program, který generuje polohy a směry všech entit. Každá entita je objekt, který vypadá následovně:
 
@@ -39,7 +38,7 @@ Do výsledných snímků se ale zapisuje pouze typ, poloha a směr. Údaj o čas
 ## Video renderer
 
 Python v tomto projektu využívá některé knihovny, které nejsou součástí standard library:
-- matplotlib
+- Pillow
 - opencv-python
 
 Pro čisté použití je nutná příprava prostředí:
@@ -51,11 +50,9 @@ Pro čisté použití je nutná příprava prostředí:
 Po ukončení práce je možné prostředí ukončit pomocí `exit`
 
 
-Video renderer je python progam, který se spouští z root složky pomocí `python renderer.py`. Vstupní data pocházejí z text frame generatoru, nebo při testování z testovacího generátoru. Výsledkem je:
+Video renderer je python progam, který se spouští z root složky pomocí `python renderer.py`. Vstupní data pocházejí z text frame generatoru, výsledkem je:
 - složka jednotlivých snímků
 - finální .mp4 video
-
-Testovací text frame generátor se spouští pomocí `python test_text_frame_generator.py` a generuje soubory ve složce video_renderer/test_text_frames, kterou i vytváří.
 
 ## Poznámky
 - .gitignore je Chat-GPT generovaný soubor, který má fungovat obstojně pro c++ / python / VSCode projekty. Pomalu se rozrůstá.

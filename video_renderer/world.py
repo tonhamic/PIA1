@@ -1,50 +1,46 @@
 from .entity import Entity
 from pathlib import Path
-import matplotlib.pyplot as plt
-from math import sin, cos, pi
 from .paths import frames_path
 from . import _settings
+from PIL import Image, ImageDraw
+
 
 class World:
-    def __init__(self, id):
+    def __init__(self):
         self.entities: list[Entity] = []
-        self.id = id
-    
-    @staticmethod    
-    def from_file(path: Path) -> "World":
-        w = World(id=int(path.stem))
-        with open(path) as file:
-            file = file.read().split("\n")
-            for line in file:
-                if line == "":
-                    continue
-                entity = Entity.from_str(line)
-                w.entities.append(entity)
-        return w
-    
-    def render_frame(self):
-        width = _settings.get_screen_width()
-        height = _settings.get_screen_height()
-        aspect_ratio = width / height
-        fig, ax = plt.subplots(figsize=(5*aspect_ratio, 5))
-        ax.set_xlim(0, width)
-        ax.set_ylim(0, height)
-
-        # background
-        fig.patch.set_facecolor('#DDDCAB')
+        self.id = None
+        self.height = _settings.get_screen_height()
+        self.width = _settings.get_screen_width()
+        self.image = Image.new("RGB", (self.width, self.height), _settings.get_background_color())
+        self.draw = ImageDraw.Draw(self.image)
         
-        a = _settings.get_animal_size()
+    def load_entities_from_frame(self, text_frame_path: Path) -> None:
+        self.entities = []
+        # struktura souboru je takova, ze blok preys a predators je oddelen prazdnou linkou
+        
+        with open(text_frame_path) as file:
+            file = file.read().split("\n")
+            blank_line_passed = False
+            
+            for line in file:
+                if line.strip() == "":
+                    blank_line_passed = True
+                    continue
+                type = "predator" if blank_line_passed else "prey"
+                entity = Entity.from_str(line, type=type)
+                self.entities.append(entity)
+                
+        self.id = text_frame_path.stem
+    
+    
+    def clear(self):
+        self.draw.rectangle([0, 0, self.width, self.height], fill=_settings.get_background_color())
+        self.entities = []
+        
+
+    def render_frame(self):
+        pass
         for e in self.entities:
-            points = [
-                [e.x, e.y], 
-                [e.x + a*cos(e.phi + pi + pi/8), e.y + a*sin(e.phi + pi + pi/8)], 
-                [e.x + a*cos(e.phi + pi - pi/8), e.y + a*sin(e.phi + pi - pi/8)]
-            ]
-            triangle = plt.Polygon(points, closed=True, color='blue', alpha=0.8)
-            ax.add_patch(triangle)
-
-        ax.axis('off')
+            self.draw.polygon(e.get_transformed_points_for_render(), fill=e.get_fill())
         file_path = frames_path / f"{self.id}.png"
-        plt.savefig(file_path, bbox_inches='tight', facecolor=fig.get_facecolor(), dpi=200)
-        plt.close(fig)
-
+        self.image.save(file_path, "PNG")
