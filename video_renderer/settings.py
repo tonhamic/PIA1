@@ -13,7 +13,11 @@ class Settings:
             "screen_height": 720,
             "frame_rate": 30,
             "text_frames_use_phi": False,
-            "animal_size": 5,
+            "prey_size": 15,
+            "predator_size": 25,
+            "predator_color": "red",
+            "prey_color": "blue",
+            "background_color": "white",
             "text_frames_folder_path": "simulation_data"
         }
         with open(settings_path, "w") as file:
@@ -41,9 +45,21 @@ class Settings:
     def get_text_frames_use_phi(self) -> bool:
         return self._dict["text_frames_use_phi"]
     
-    def get_animal_size(self) -> int:
-        return self._dict["animal_size"]
+    def get_prey_size(self) -> int:
+        return self._dict["prey_size"]
+    
+    def get_predator_size(self) -> int:
+        return self._dict["predator_size"]
 
     def get_text_frames_folder_path(self) -> str:
         return self._dict["text_frames_folder_path"]
+
+    def get_background_color(self) -> str:
+        return self._dict["background_color"]
+    
+    def get_predator_color(self) -> str:
+        return self._dict["predator_color"]
+    
+    def get_prey_color(self) -> str:
+        return self._dict["prey_color"]
     

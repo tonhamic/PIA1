@@ -6,5 +6,8 @@ name = "pypi"
 [packages]
 opencv-python = "*"
 matplotlib = "*"
+pillow = "*"
 
 [dev-packages]
+
+[requires]

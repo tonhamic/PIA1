@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fdb9f03efd590081fde27ca01f3fad1ed2b22342030911cc52458b3d17d02110"
+            "sha256": "3d9d161fe7893941c32069f9cf019d2cfbf53322eb60c703b49b4be81cad8953"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -302,7 +302,6 @@
                 "sha256:f7c0410f181a531ec4e93bbc27692f2c71a15c2da16766f5ba9761e7ae518413"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.9'",
             "version": "==3.9.2"
         },
         "numpy": {
@@ -377,7 +376,6 @@
                 "sha256:fc182f8f4cda51b45f01c64e4cbedfc2f00aff799debebc305d8d0210c43f251"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.6'",
             "version": "==4.10.0.84"
         },
         "packaging": {
@@ -466,7 +464,7 @@
                 "sha256:fbbcb7b57dc9c794843e3d1258c0fbf0f48656d46ffe9e09b63bbd6e8cd5d0a2",
                 "sha256:fcb4621042ac4b7865c179bb972ed0da0218a076dc1820ffc48b1d74c1e37fe9"
             ],
-            "markers": "python_version >= '3.9'",
+            "index": "pypi",
             "version": "==11.0.0"
         },
         "pyparsing": {
@@ -482,7 +480,7 @@
                 "sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3",
                 "sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==2.9.0.post0"
         },
         "six": {
@@ -490,7 +488,7 @@
                 "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926",
                 "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==1.16.0"
         }
     },
