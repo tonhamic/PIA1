@@ -19,6 +19,7 @@ double getY() const { return y; };
 double getVX() const { return vx; };
 double getVY() const { return vy; };
 int getScore() const { return score; };
+int getReq_score() const { return req_score; };
 // //matrix of distances from prey in close proximity
 // std::pair<double, double> look_for_prey(const std::vector<prey>& vec_prey) const;
 // //calculation of change in direction
@@ -31,12 +32,13 @@ double v_size = 15.0;
 // int sight = 300;   //distance required for change in direction  
 
 private:
-int score; 
+int score = 0; 
+int req_score = 5;
 void limitVelocity();
-const double attractionRange = 1000.0;  
-const double repulsionRange = 400.0;  
+static constexpr double attractionRange = 1000.0;  
+static constexpr double repulsionRange = 400.0;  
 static constexpr double G = 1500.0;
-static constexpr double K = 2000.0;
+static constexpr double A = 3000.0;
 
 
 };
