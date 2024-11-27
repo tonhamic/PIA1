@@ -1,7 +1,7 @@
 window_width=1280
 window_height=720
 fps=30
-sim_time=5
+sim_time=30
 n_preys=50
 n_predators=10
 predator_death_score=-150

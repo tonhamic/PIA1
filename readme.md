@@ -8,6 +8,8 @@ Josef Lát
 
 ## Cíle
 
+- ukázkové video jako výsledek práce je ke shlédnutí [zde](https://youtu.be/x6zcPvuZ-Q4).
+
 - c++ program, který simuluje dvě populace pohybujících se organismů, které soupeří o čas a přežití. Výstupem je poloha a směr všech predátorů a kořistí v každém časovém kroku. Pohyb kořisti je inspirovaný pravidly popsanými v [Boids algorithm](https://en.wikipedia.org/wiki/Boids). 
 - python program, který na základě spočtených dat vygeneruje krátké video, na kterém bude patrný vývoj populací a pohyb jednotlivých organismů
 - parametry simulace:

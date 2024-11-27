@@ -112,7 +112,15 @@ int main() {
             predators.erase(predators.begin() + dead_predators[i]);
         }
         dead_predators.clear();
+
+        n_predator = predators.size();
+        n_prey = preys.size();
+        if (n_predator ==  0 || n_prey == 0) {
+            std::cout << "Simulation ended, only one type alive." << std::endl;
+            break;
+        } 
     }
+    
 
 
     
