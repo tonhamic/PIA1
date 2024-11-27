@@ -7,6 +7,8 @@
 #include "animal.h"
 class prey;
 #include "prey.h"
+#include "settings.h"
+
 
 using namespace std;
 class  predator : public animal {
@@ -28,17 +30,18 @@ int getReq_score() const { return req_score; };
 protected: 
 double x, y;           
 double vx, vy;   
-double v_size = 15.0;   
+double v_size = get_param("predator_maxv");   
 // int sight = 300;   //distance required for change in direction  
 
 private:
 int score = 0; 
-int req_score = 5;
+int req_score = get_param("predator_req_score");
 void limitVelocity();
-static constexpr double attractionRange = 1000.0;  
-static constexpr double repulsionRange = 400.0;  
-static constexpr double G = 1500.0;
-static constexpr double A = 3000.0;
+int attractionRange = get_param("predator_attraction_range");
+int chaseRange = get_param("predator_chase_range");
+int repulsionRange = get_param("predator_repulsion_range");
+int chase_coef = get_param("predator_chase_coef");
+int repulsion_coef = get_param("predator_repulsion_coef");
 
 
 };

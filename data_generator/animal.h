@@ -3,6 +3,7 @@
 
 #include <string>
 #include <fstream>
+#include "settings.h"
 
 using namespace std;
 
@@ -19,9 +20,9 @@ animal(float startX, float startY); // to avoid creating object directly from an
 float x, y;           
 float vx, vy;
 //fixed resolution          
-int windowWidth = 1280;
-int windowHeight = 720;
-double eat_distance = 10.0;
+int windowWidth = get_param("window_width");
+int windowHeight = get_param("window_height");
+double eat_distance = get_param("eat_distance");
 private: 
 
 };

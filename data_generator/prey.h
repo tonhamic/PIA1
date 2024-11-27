@@ -6,6 +6,7 @@
 #include <vector>
 #include "animal.h"
 #include "predator.h"
+#include "settings.h"
 
 using namespace std;
 class predator;
@@ -24,20 +25,22 @@ int getReq_alive() const { return req_alive; }
 
 protected: 
 double x, y; 
-int sight = 200;   //distance required for change in direction
+// int sight = 200;   //distance required for change in direction
 double vx, vy;
-double v_size = 10.0;
+double v_size = get_param("prey_maxv");
 
 private: 
 
 void limitVelocity();
-static constexpr double attractionRange = 500.0;  
-static constexpr double repulsionRange = 100.0;  
-static constexpr double G = 2000.0;
-static constexpr double R = 1500.0;
+int attractionRange = get_param("prey_attraction_range");  
+int repulsionRange = get_param("prey_repulsion_range");  
+int runRange = get_param("prey_run_range");
+int attraction_coef = get_param("prey_attraction_coef");
+int repulsion_coef = get_param("prey_repulsion_coef");
+int run_coef = get_param("prey_run_coef");
 int alive = 0;
 bool eaten ;
-int req_alive = 60;
+int req_alive = get_param("prey_req_alive");
 };
 
 #endif

@@ -51,7 +51,7 @@ void prey::update(std::vector<prey>& others) {
         
         if (distance > 0 && distance < attractionRange) {
             //attraction force (m1,2 = 1)
-            double force = G / (distance * distance); //analogy with newton's gravity law
+            double force = attraction_coef / (distance * distance); //analogy with newton's gravity law
             double fx = force * (dx / distance);      //x component of force
             double fy = force * (dy / distance);      //y component of force
 
@@ -62,7 +62,7 @@ void prey::update(std::vector<prey>& others) {
 
         if (distance > 0 && distance < repulsionRange) {
             //repulsion force (m1,2 = 1)
-            double force = -G / (distance * distance); //analogy with newton's gravity law
+            double force = -repulsion_coef / (distance * distance); //analogy with newton's gravity law
             double fx = force * (dx / distance);       //x component of force
             double fy = force * (dy / distance);       //y component of force
 
@@ -109,9 +109,9 @@ void prey::run(std::vector<predator> enemies){
         double distance = sqrt(dx * dx + dy * dy);
 
         
-        if (distance > 0 && distance < attractionRange) {
+        if (distance > 0 && distance < runRange) {
             //attraction force (m1,2 = 1)
-            double force = -R / (distance * distance); //analogy with newton's gravity law
+            double force = -run_coef / (distance * distance); //analogy with newton's gravity law
             double fx = force * (dx / distance);      //x component of force
             double fy = force * (dy / distance);      //y component of force
 
