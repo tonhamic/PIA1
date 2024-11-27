@@ -8,29 +8,34 @@
 #include "prey.h"
 #include "generate_preys.h"
 #include "generate_predators.h"
+#include "settings.h"
 
 
 int main() {
     //SETTINGS
-    int fps = 30;                                               //desired FPS
-    int sim_time = 30;                                          //simulation time
-    int totalFrames = fps * sim_time;                           //total number of frames
-    std::vector<prey> preys = generate_preys(50);               //starting number of preys
-    std::vector<predator> predators = generate_predators(10);    //starting number of predators
+    int fps = get_param("fps");                             //desired FPS
+    int sim_time = get_param("sim_time");                   //simulation time
+    int totalFrames = fps * sim_time;                       //total number of frames
+    std::vector<prey> preys = generate_preys(get_param("n_preys")); //starting number of preys
+    std::vector<predator> predators = generate_predators(get_param("n_predators")); //starting number of predators
     //--------------------------------------------------------------------------------------------
 
     //creating directory "simulation_data"
+    // clear it first from previous simulations
+
     const std::string folderName = "simulation_data";
+    if (std::filesystem::exists(folderName)) {
+        std::filesystem::remove_all(folderName);
+    }
     std::filesystem::create_directory(folderName);
-
-
-
 
 
 //simulation
     for (int frame = 0; frame < totalFrames; ++frame) {
+        std::cout << "Frame: " << frame << std::endl;
         int n_prey = preys.size();
         int n_predator = predators.size();
+        std::cout << "Number of preys and predators: " << n_prey << " " << n_predator << std::endl;
         //create data.txt 
         std::string filePath = folderName + "/" + std::to_string(frame) + ".txt";
 
@@ -46,7 +51,6 @@ int main() {
                     << preys[i].getVX() << "; " << preys[i].getVY() << "\n";
         }
 
-        //empty line between preys and predators, just uncomment and use when the renderer will be ready for it
         outFile << " " << "\n";
 
         for (int i =0;i<n_predator; i++) {
@@ -89,10 +93,10 @@ int main() {
                 new_predators.push_back(predator(predators[i].getX(),predators[i].getY()));
             }
 
-            if(predators[i].getScore() <= -150) {
+            if(predators[i].getScore() <= get_param("predator_death_score")) {
                 dead_predators.push_back(i);
             }
-            std::cout << predators[i].getScore() << " ";
+            // std::cout << predators[i].getScore() << " ";
         }
 
         for (size_t i = 0; i < new_predators.size(); i++) {
@@ -101,7 +105,7 @@ int main() {
         new_predators.clear();
 
         for (size_t i = 0; i < dead_predators.size(); i++){
-            std::cout << dead_predators[i] << std::endl;
+            // std::cout << dead_predators[i] << std::endl;
         }
 
         for (int i = dead_predators.size() - 1; i >= 0; --i){

@@ -61,7 +61,7 @@ void predator::update(std::vector<predator>& others) {
 
         if (distance > 0 && distance < repulsionRange) {
             //repulsion force (m1,2 = 1)
-            double force = -G / (distance * distance); //analogy with newton's gravity law
+            double force = -repulsion_coef / (distance * distance); //analogy with newton's gravity law
             double fx = force * (dx / distance);       //x component of force
             double fy = force * (dy / distance);       //y component of force
 
@@ -107,9 +107,9 @@ void predator::chase(std::vector<prey> enemies){
         double distance = sqrt(dx * dx + dy * dy);
 
         
-        if (distance > 0 && distance < attractionRange+100) {
+        if (distance > 0 && distance < chaseRange) {
             //attraction force (m1,2 = 1)
-            double force = A / (distance * distance); //analogy with newton's gravity law
+            double force = chase_coef / (distance * distance); //analogy with newton's gravity law
             double fx = force * (dx / distance);      //x component of force
             double fy = force * (dy / distance);      //y component of force
 

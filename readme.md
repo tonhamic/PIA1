@@ -2,15 +2,14 @@
 
 Michal Tonhajzer
 
-
 Michal Redhammer
 
 Josef Lát
 
 ## Cíle
 
-- c++ program, který simuluje dvě populace pohybujících se organismů, které soupeří o čas a přežití. Výstupem je poloha a směr všech entit v každém časovém kroku.
-- python program, který na základě spočtených dat vygeneruje krátké video, na kterém bude patrný vývoj populací a pohyb jednotlivých entit
+- c++ program, který simuluje dvě populace pohybujících se organismů, které soupeří o čas a přežití. Výstupem je poloha a směr všech predátorů a kořistí v každém časovém kroku. Pohyb kořisti je inspirovaný pravidly popsanými v [Boids algorithm](https://en.wikipedia.org/wiki/Boids). 
+- python program, který na základě spočtených dat vygeneruje krátké video, na kterém bude patrný vývoj populací a pohyb jednotlivých organismů
 - parametry simulace:
     - velikost prostoru 1280 × 720 px (HD or 720p)
     - framerate 30 fps
@@ -21,19 +20,20 @@ Josef Lát
     - intenzita shlukování, alignmentu směru a zdrhání od predátorů
     - poloměr "osobního prostoru" kořisti a intenzita vzájemného odpuzování
     - poloměr dohledu predátorů, intenzita pronásledování kořisti
+- parametry vizualizace:
+    - velikost a barva zvířat
 
 ## Data generator
 
-Frame generator je c++ program, který generuje polohy a směry všech entit. Každá entita je objekt, který vypadá následovně:
+Frame generator je c++ program, který generuje polohy a směry všech zvířat. Každé zvíře je objekt, který vypadá následovně:
 
-Class Entity:
-- typ: string, rozlišuje mezi rybami a žraloky a tím určuje jejich chování
+Class Animal:
 - x: poloha ve směru x, počátek je v levém spodním rohu obrazovky
 - y: poloha ve směru y
-- phi: směr pohybu <0, 2pi>. Nulový úhel odpovídá směru osy x.
-- t: údaj o čase, udávaný v počtu snímků. Ryby se po chvíli rozmnožují, žraloci po chvíli bez jídla zemřou.
 
-Do výsledných snímků se ale zapisuje pouze typ, poloha a směr. Údaj o čase není pro animaci důležizý.
+Dále existují dvě třídy potomků Animal: Predator a Prey. V nich je implementována veškerá další funkcionalita.
+
+Do výsledných snímků se zapisuje pouze poloha a vektor rychlosti. Predátoři jsou od Kořisti odděleni jedním prázdným řádkem.
 
 ## Video renderer
 
@@ -53,6 +53,3 @@ Po ukončení práce je možné prostředí ukončit pomocí `exit`
 Video renderer je python progam, který se spouští z root složky pomocí `python renderer.py`. Vstupní data pocházejí z text frame generatoru, výsledkem je:
 - složka jednotlivých snímků
 - finální .mp4 video
-
-## Poznámky
-- .gitignore je Chat-GPT generovaný soubor, který má fungovat obstojně pro c++ / python / VSCode projekty. Pomalu se rozrůstá.
