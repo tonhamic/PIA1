@@ -23,7 +23,7 @@ int main() {
     //creating directory "simulation_data"
     // clear it first from previous simulations
 
-    const std::string folderName = "simulation_data";
+    const std::string folderName = "../simulation_data";
     if (std::filesystem::exists(folderName)) {
         std::filesystem::remove_all(folderName);
     }
