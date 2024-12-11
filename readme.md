@@ -36,6 +36,8 @@ Class Animal:
 Dále existují dvě třídy potomků Animal: Predator a Prey. V nich je implementována veškerá další funkcionalita.
 
 Do výsledných snímků se zapisuje pouze poloha a vektor rychlosti. Predátoři jsou od Kořisti odděleni jedním prázdným řádkem.
+Preklada sa zo slozky data generator prikazom make.
+Spusta sa pomocou prikazu ./simulation
 
 ## Video renderer
 
